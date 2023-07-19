@@ -2,6 +2,7 @@ import React from "react";
 import { MdOutlineMonitor } from "react-icons/md";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { GoComment } from "react-icons/go";
+import {useForm, SubmitHandler} from 'react-hook-form'
 
 const BannerBottom = () => {
   return (
@@ -11,9 +12,9 @@ const BannerBottom = () => {
           My Blog
         </p>
         <h3 className="font-bold text-xl md:text-3xl">
-          These 7 things will change the way you approach learning!
+          These 7 things need to know about solid minerals!
         </h3>
-        <p className="text-xs text-white/50">Camila Hoffman / 4 weeks ago</p>
+        <p className="text-xs text-white/50">Nicholas Igunbor / 4 weeks ago</p>
       </div>
       <div className="w-full lg:w-[40%] flex items-center justify-center gap-2 lg:gap-8">
         <div className="w-full flex flex-col items-center group">
