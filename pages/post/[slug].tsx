@@ -1,16 +1,43 @@
-import React from "react";
+import React, {useState} from "react";
 import PortableText from "react-portable-text";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { sanityClient, urlFor } from "../../sanity";
 import { Post } from "../../typings";
 import { GetStaticProps } from "next";
+import { useForm, SubmitHandler } from "react-hook-form";
 
 interface Props {
   post: Post;
 }
+type Input = {
+  _id: string;
+  name: string;
+  email: string;
+  comment: string;
+};
 
 const Post = ({ post }: Props) => {
+    const [submitted, setSubmitted] = useState(false)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Input>();
+
+  const onSubmit: SubmitHandler<Input> = (data) => {
+    fetch('/api/createComment', {
+        method:'POST',
+        body:JSON.stringify(data),
+    }).then(() => {
+        setSubmitted(true)
+
+    })
+    .catch((err) => {
+        setSubmitted(false)
+    });
+  };
+  //console.log(post.comments)
   return (
     <div>
       <Header />
@@ -92,12 +119,22 @@ const Post = ({ post }: Props) => {
           <hr className="py-3 mt-3" />
 
           {/* form starts here */}
-          <form className="mt-7 flex flex-col gap-6">
+          <input
+            {...register("_id")}
+            type="hidden"
+            name="_id"
+            value={post._id}
+          />
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="mt-7 flex flex-col gap-6"
+          >
             <label className="flex flex-col">
               <span className="font-titleFont font-semibold text-base">
                 Name
               </span>
               <input
+                {...register("name", { required: true })}
                 type="text"
                 placeholder="Enter your name"
                 className="text-base placeholder:text-sm border-b-[1px] border-secondaryColor py-1 px-4 outline-none focus-within:shadow-xl shadow-secondaryColor"
@@ -108,6 +145,7 @@ const Post = ({ post }: Props) => {
                 Email
               </span>
               <input
+                {...register("email", { required: true })}
                 type="email"
                 placeholder="Enter your Email"
                 className="text-base placeholder:text-sm border-b-[1px] border-secondaryColor py-1 px-4 outline-none focus-within:shadow-xl shadow-secondaryColor"
@@ -118,13 +156,32 @@ const Post = ({ post }: Props) => {
                 Comment
               </span>
               <textarea
+                {...register("comment", { required: true })}
                 placeholder="Enter your Comments"
                 rows={6}
                 className="text-base placeholder:text-sm border-b-[1px] border-secondaryColor py-1 px-4 outline-none focus-within:shadow-xl shadow-secondaryColor"
               />
             </label>
-            <button type='submit' className='w-full bg-bgColor text-white text-base font-titleFont font-semibold tracking-wider uppercase py-2 rounded-sm hover:bg-secondaryColor duration-300'>Submit</button>
+            <button
+              type="submit"
+              className="w-full bg-bgColor text-white text-base font-titleFont font-semibold tracking-wider uppercase py-2 rounded-sm hover:bg-secondaryColor duration-300"
+            >
+              Submit
+            </button>
           </form>
+          {/* comment */}
+          <div className="w-full flex flex-col p-10 my-10 mx-auto shadow-bgColor shadow-lg space-y-2">
+            <h3 className="text-3xl font-titleFont font-semibold">Comments</h3>
+            <hr />
+            {
+                post.comments?.map((comment) => (
+                    <div key={comment._id}>
+                        <p><span className="text-secondaryColor">{comment.name}</span>{":  "}{comment.comment}</p>
+                    </div>
+                ))
+            }
+            
+          </div>
         </div>
       </div>
       <Footer />
@@ -162,6 +219,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             name,
             image,
           },
+          "comments":*[_type == "comment" && post._ref == ^._id && approved == true ],
           description,
           mainImage,
           slug,
