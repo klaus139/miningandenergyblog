@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Slider from "react-slick";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import bannerImgOne from "../public/images/bannerImgOne.jpg";
-import bannerImgTwo from "../public/images/bannerImgTwo.jpg";
-import bannerImgThree from "../public/images/bannerImgThree.jpg";
-import bannerImgFour from "../public/images/bannerImgFour.jpg";
+import bannerImgOne from "../public/images/rigggg.jpeg";
+import bannerImgTwo from "../public/images/minie11.jpeg";
+import bannerImgThree from "../public/images/mining-field.jpeg";
+import bannerImgFour from "../public/images/Feature-Image-Top-ten-oil-and-gas-companies.webp";
 
 function SampleNextArrow(props: any) {
   const { onClick } = props;
@@ -62,6 +62,10 @@ const Banner = () => {
   };
   return (
     <div className="w-full h-auto md:h-[650px] relative">
+      <div className='mt-5 w-full lg:w-[60%] flex flex-col gap-3 position-absolute'>
+        <h1 className='position:absolute font-bold text-xl md:text-3xl'>EVLOG</h1>
+        
+      </div>
       <Slider {...settings}>
         <div>
           <Image

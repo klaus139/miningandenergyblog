@@ -12,13 +12,9 @@ const Header = () => {
           </div>
         </Link>
         <div>
-          <ul className="hidden lg:inline-flex gap-8 uppercase text-sm font-semibold">
-            <li className="headerLi">Home</li>
-            <li className="headerLi">Posts</li>
-            <li className="headerLi">Pages</li>
-            <li className="headerLi">Features</li>
-            <li className="headerLi">Contact</li>
-          </ul>
+          <h1 className="hidden lg:inline-flex gap-8 uppercase text-sm font-semibold">
+            EVLOG NEWSLETTER
+          </h1>
         </div>
         <div className="flex items-center gap-8 text-lg">
           <div className="flex items-center gap-1">
@@ -27,12 +23,12 @@ const Header = () => {
               src="https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?cs=srgb&dl=pexels-mohamed-abdelghaffar-771742.jpg&fm=jpg"
               alt="logo"
             />
-            <p className="text-sm font-medium">Hi!</p>
+            <p className="text-sm font-medium">Welcome!</p>
           </div>
 
-          <button className="uppercase text-sm border-[1px] border-primaryColor hover:border-secondaryColor px-4 py-1 font-semibold hover:text-white rounded-md hover:bg-secondaryColor transition-all duration-300 active:bg-yellow-600">
+          {/* <button className="uppercase text-sm border-[1px] border-primaryColor hover:border-secondaryColor px-4 py-1 font-semibold hover:text-white rounded-md hover:bg-secondaryColor transition-all duration-300 active:bg-yellow-600">
             Sign In
-          </button>
+          </button> */}
         </div>
       </div>
     </div>
